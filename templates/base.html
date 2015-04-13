@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ sitename }} {% block title %}{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/lib/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/css/app.css">
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="{{ sitename }}" />
+    {% block css %}
+    {% endblock %}
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p><img src="/static/img/avatar.png" alt="{{ author }}" class="img-circle" /></p>
+
+          <a href="/index.html">Home</a> &bull;
+          <a href="/blog.html">Blog</a>
+        </div>
+      </div>
+    </div>
+
+    {% block content %}{% endblock content %}
+
+    <script src="/static/js/lib/jquery-1.11.2.min.js"></script>
+    <script src="/static/js/lib/bootstrap.min.js"></script>
+    {% block javascript %}
+    {% endblock javascript %}
+  </body>
+</html>

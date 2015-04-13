@@ -1,0 +1,77 @@
+/* Fonts
+==================== */
+
+@font-face {
+    font-family: 'ClearSans';
+    src: url('../fonts/ClearSans-Regular.eot');
+    src: url('../fonts/ClearSans-Regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ClearSans-Regular.woff') format('woff'),
+         url('../fonts/ClearSans-Regular.ttf') format('truetype'),
+         url('../fonts/ClearSans-Regular.svg#open_sans') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ClearSans';
+    src: url('../fonts/ClearSans-Bold.eot');
+    src: url('../fonts/ClearSans-Bold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ClearSans-Bold.woff') format('woff'),
+         url('../fonts/ClearSans-Bold.ttf') format('truetype'),
+         url('../fonts/ClearSans-Bold.svg#open_sansbold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'ClearSans';
+    src: url('../fonts/ClearSans-BoldItalic.eot');
+    src: url('../fonts/ClearSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ClearSans-BoldItalic.woff') format('woff'),
+         url('../fonts/ClearSans-BoldItalic.ttf') format('truetype'),
+         url('../fonts/ClearSans-BoldItalic.svg#open_sansbold_italic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'ClearSans';
+    src: url('../fonts/ClearSans-Italic.eot');
+    src: url('../fonts/ClearSans-Italic.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/ClearSans-Italic.woff') format('woff'),
+         url('../fonts/ClearSans-Italic.ttf') format('truetype'),
+         url('../fonts/ClearSans-Italic.svg#open_sansitalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+
+/* Generic
+==================== */
+
+body {
+    font-size: 16px;
+    line-height: 1.4;
+    font-family:'ClearSans';
+    background-color: #eee;
+}
+
+.container {
+    margin-top: 20px;
+    width: 960px;
+}
+
+a {
+    color: #f06;
+}
+
+a:hover,
+a:active,
+a:visited {
+    color: #f06;
+    text-decoration: underline;
+}
