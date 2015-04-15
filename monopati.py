@@ -72,6 +72,9 @@ def generate_posts():
         year = str(datetime.tm_year)
         month = ('0' + str(datetime.tm_mon) if datetime.tm_mon < 10 else str(datetime.tm_mon))
         day = ('0' + str(datetime.tm_mday) if datetime.tm_mday < 10 else str(datetime.tm_mday))
+
+        shortdate = str.join('.', (year, month, day))
+
         postpath = path.join(year, month, day)
         try:
             makedirs(postpath)
@@ -83,6 +86,7 @@ def generate_posts():
 
         post_object = dict(
             date=date,
+            shortdate=shortdate,
             title=headers['title'],
             slug=headers['slug'],
             tags=tags,

@@ -2,23 +2,20 @@
 
 {% block content %}
   <div class="container">
-    <h3>Posts</h3>
+    <h3>Blog</h3>
 
-    <table class="table table-striped">
-      <thead>
+    <table class="table table-responsive">
+      {% for post in posts %}
         <tr>
-          <th>Date</th>
-          <th>Title</th>
+          <td id="pubdate">{{ post['shortdate'] }}</td>
+          <td>
+            <a href="{{ post.link }}">{{ post.title }}</a><br>
+            {% for tag in post.tags %}
+              <span class="text-muted">#{{ tag }}</span>&nbsp;
+            {% endfor %}
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        {% for post in posts %}
-          <tr>
-            <td>{{ post['date'] }}</td>
-            <td><a href="{{ post.link }}">{{ post.title }}</a></td>
-          </tr>
-        {% endfor %}
-      </tbody>
+      {% endfor %}
     </table>
   </div>
 {% endblock %}
