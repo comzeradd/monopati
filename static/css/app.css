@@ -75,3 +75,7 @@ a:visited {
     color: #f06;
     text-decoration: underline;
 }
+
+a.text-muted {
+    color: #555;
+}

@@ -15,7 +15,7 @@
 # See the file 'LICENSE' for more information.
 
 
-from os import path, listdir, makedirs
+from os import path, listdir, makedirs, mkdir
 import sys
 import yaml
 import time
@@ -112,24 +112,42 @@ def generate_posts():
     return posts, tag_set
 
 
-def generate_archive(posts):
+def generate_archive(posts, tag_set):
     print('Generating blog archive...')
 
     env = Environment()
     env.loader = FileSystemLoader('templates')
     tpl = env.get_template('blog.html')
-
     html = tpl.render(dict(
         sitename=cfg['sitename'],
-        page='archive',
+        title='blog',
         posts=posts
     ))
-
     with open('blog.html', 'w') as file:
         file.write(html)
 
+    for tag in tag_set:
+        print('Generating {0} archive page...'.format(tag))
+        post_list = []
+        for post in posts:
+            if tag in post['tags']:
+                post_list.append(post)
+        tpl = env.get_template('blog.html')
+        html = tpl.render(dict(
+            sitename=cfg['sitename'],
+            title='blog: {0}'.format(tag),
+            posts=post_list
+        ))
+        tagpath = path.join('tag', tag)
+        try:
+            mkdir(tagpath)
+        except OSError:
+            pass
+        with open('{0}/index.html'.format(tagpath), 'w') as file:
+            file.write(html)
 
-def generate_feed(posts, tag_set):
+
+def generate_feeds(posts, tag_set):
     print('Generating atom feed...')
 
     env = Environment()
@@ -144,11 +162,11 @@ def generate_feed(posts, tag_set):
         file.write(xml)
 
     for tag in tag_set:
-        post_list = posts
         print('Generating {0} atom feed...'.format(tag))
-        for post in post_list:
-            if 'python' not in post['tags']:
-                post_list.pop()
+        post_list = []
+        for post in posts:
+            if tag in post['tags']:
+                post_list.append(post)
         xml = env.get_template('feed.xml').render(
             items=post_list,
             sitename=cfg['sitename'],
@@ -156,15 +174,20 @@ def generate_feed(posts, tag_set):
             rooturl=cfg['rooturl'],
             tagtitle=' &bull; {0}'.format(tag)
         )
-        with open('{0}.xml'.format(tag), 'w') as file:
+        tagpath = path.join('tag', tag)
+        try:
+            mkdir(tagpath)
+        except OSError:
+            pass
+        with open('{0}/feed.xml'.format(tagpath), 'w') as file:
             file.write(xml)
 
 
 def main():
     generate_pages()
     posts, tag_set = generate_posts()
-    generate_archive(posts)
-    generate_feed(posts, tag_set)
+    generate_archive(posts, tag_set)
+    generate_feeds(posts, tag_set)
 
 
 if __name__ == '__main__':
