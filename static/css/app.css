@@ -62,7 +62,7 @@ body {
 
 .container {
     margin-top: 20px;
-    width: 960px;
+    width: 800px;
 }
 
 a {
@@ -78,4 +78,8 @@ a:visited {
 
 a.text-muted {
     color: #555;
+}
+
+.avatar {
+    margin-bottom: 15px;
 }

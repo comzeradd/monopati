@@ -5,11 +5,11 @@
     <div class="row">
       <div class="col-md-12">
         <h2>
-          <a href="{{ link }}">{{ title }}</a>
+          <a href="/{{ link }}">{{ title }}</a>
         </h2>
         <small>
           {% for tag in tags %}
-            #{{ tag }}
+            <a href="/tag/{{ tag }}/">#{{ tag }}</a>
           {% endfor %}
         </small>
       </div>
