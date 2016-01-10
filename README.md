@@ -23,6 +23,12 @@ Use templates for adjusting UI to fit your needs.
 both templates and pages. [Markdown](https://en.wikipedia.org/wiki/Markdown)
 for blog posts.
 
+Copy configuration example and edit it to fit your site specifics.
+
+```
+cp config.yml-dist config.yml
+```
+
 Run monopati:
 
 ```
@@ -32,6 +38,13 @@ Run monopati:
 This will generate all necessary files for serving the website.
 Monopati doesn't create any subfolder for generating the files,
 so it should be fairly easy to deploy it by just uploading the whole folder.
+
+### Example
+
+The code comes with one example post (under the `posts`) folder. You can check
+how the metadata header is being user and some basic syntax. Under the `pages`
+folder there is a static template example which serves as the landing and about
+page of your site.
 
 ## LICENSE
 
