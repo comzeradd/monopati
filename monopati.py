@@ -20,6 +20,7 @@ import sys
 import yaml
 import time
 from glob import glob
+from shutil import copy2
 
 from markdown import Markdown
 from jinja2 import Environment, FileSystemLoader
@@ -82,11 +83,10 @@ def generate_posts():
         except OSError:
             pass
 
-        if 'images' in headers:
-            import shutil
-            images = headers['images'].split(', ')
-            for image in images:
-                shutil.copy2(path.join('posts', image), postpath)
+        if 'files' in headers:
+            files = headers['files'].split(', ')
+            for file in files:
+                copy2(path.join('posts/files/', file), postpath)
 
         filename = '{0}/{1}.html'.format(postpath, headers['slug'])
 

@@ -2,7 +2,7 @@ title: Hello World
 slug: hello-world
 date: 2015-04-13 18:00:00
 tags: opensource, python
-images: tor-people.jpg
+files: tor-people.jpg
 ---
 
 _Welcome to monopati!_
