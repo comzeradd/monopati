@@ -19,6 +19,7 @@ from os import path, listdir, makedirs, mkdir
 import sys
 import yaml
 import time
+from glob import glob
 
 from markdown import Markdown
 from jinja2 import Environment, FileSystemLoader
@@ -51,12 +52,12 @@ def generate_posts():
     env = Environment()
     env.loader = FileSystemLoader('templates')
 
-    for post in listdir('posts'):
-        orig = path.join('posts', post)
+    listing = glob('posts/*md')
+    for post in listing:
 
-        print('Generating {0}...'.format(orig))
+        print('Generating {0}...'.format(post))
 
-        raw = open(orig, 'r').read()
+        raw = open(post, 'r').read()
         headers, content = raw.split('---', 1)
         headers = yaml.load(headers)
         tags = headers['tags'].split(', ')
@@ -80,6 +81,13 @@ def generate_posts():
             makedirs(postpath)
         except OSError:
             pass
+
+        if 'images' in headers:
+            import shutil
+            images = headers['images'].split(', ')
+            for image in images:
+                shutil.copy2(path.join('posts', image), postpath)
+
         filename = '{0}/{1}.html'.format(postpath, headers['slug'])
 
         print('Generating HTML blog post at {0}...'.format(filename))
@@ -135,7 +143,7 @@ def generate_archive(posts, tag_set):
         tpl = env.get_template('blog.html')
         html = tpl.render(dict(
             sitename=cfg['sitename'],
-            title='blog: {0}'.format(tag),
+            title='blog: #{0}'.format(tag),
             posts=post_list
         ))
         tagpath = path.join('tag', tag)
