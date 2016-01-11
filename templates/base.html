@@ -16,22 +16,28 @@
   </head>
 
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <p class="avatar">
-            <a href="/">
-              <img src="/static/img/avatar.png" alt="{{ author }}" class="avatar img-circle" />
-            </a>
-          </p>
-          <a href="/index.html">About</a> &bull;
-          <a href="/blog.html">Blog</a> &bull;
-          <a href="/feed.xml" target="_blank">Feed</a>
+    <div class="wrapper">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p class="avatar">
+              <a href="/">
+                <img src="/static/img/avatar.jpg" alt="{{ author }}" class="avatar img-circle" />
+              </a>
+            </p>
+            <h3>
+              <a href="/index.html">About</a> &bull;
+              <a href="/blog.html">Blog</a> &bull;
+              <a href="/feed.xml" target="_blank">Feed</a>
+            </h3>
+          </div>
         </div>
       </div>
-    </div>
 
-    {% block content %}{% endblock content %}
+      {% block content %}{% endblock content %}
+
+    </div>
 
     <script src="/static/js/lib/jquery-1.11.2.min.js"></script>
     <script src="/static/js/lib/bootstrap.min.js"></script>

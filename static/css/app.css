@@ -62,11 +62,21 @@ body {
 
 .container {
     margin-top: 20px;
-    width: 800px;
+    max-width: 800px;
 }
 
 a {
     color: #f06;
+}
+
+img {
+    display: block;
+    margin: auto;
+    max-width: 90%;
+}
+
+.wrapper {
+    margin-bottom: 20px;
 }
 
 a:hover,
@@ -81,5 +91,11 @@ a.text-muted {
 }
 
 .avatar {
+    margin: auto;
+    max-width: 180px;
     margin-bottom: 15px;
+}
+
+.lead {
+    padding-left: 10px;
 }
