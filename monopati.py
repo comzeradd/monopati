@@ -62,6 +62,7 @@ def generate_posts():
         headers, content = raw.split('---', 1)
         headers = yaml.load(headers)
         tags = headers['tags'].split(', ')
+        slug = headers['slug']
         md = Markdown()
         content = md.convert(content)
 
@@ -77,7 +78,7 @@ def generate_posts():
 
         shortdate = str.join('.', (year, month, day))
 
-        postpath = path.join(year, month, day)
+        postpath = path.join(year, month, day, slug)
         try:
             makedirs(postpath)
         except OSError:
@@ -88,7 +89,8 @@ def generate_posts():
             for file in files:
                 copy2(path.join('posts/files/', file), postpath)
 
-        filename = '{0}/{1}.html'.format(postpath, headers['slug'])
+        link = '{0}/'.format(postpath)
+        filename = '{0}index.html'.format(link)
 
         print('Generating HTML blog post at {0}...'.format(filename))
 
@@ -101,7 +103,7 @@ def generate_posts():
             author=cfg['author'],
             sitename=cfg['sitename'],
             content=content,
-            link=filename
+            link=link
         )
 
         template = env.get_template('post.html')
