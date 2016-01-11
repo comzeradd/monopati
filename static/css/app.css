@@ -66,8 +66,6 @@ body {
 }
 
 .container {
-    margin-top: 20px;
-    margin-bottom: 20px;
     max-width: 800px;
 }
 
@@ -87,7 +85,6 @@ post > p > img {
     min-height: 100%;
     margin-bottom: -60px;
     padding-bottom: 80px;
-    margin-top: -20px;
 }
 
 
@@ -97,6 +94,7 @@ post > p > img {
     border-top: 1px solid #DDD;
     height: 60px;
     text-align: center;
+    padding: 20px 0px;
 }
 
 a:hover,
@@ -113,8 +111,12 @@ a.text-muted {
 .avatar {
     margin: auto;
     max-width: 180px;
-    margin-bottom: 15px;
     margin-top: 20px;
+}
+
+.home-bio {
+    text-align: center;
+    margin-top: 10px;
 }
 
 .lead {
