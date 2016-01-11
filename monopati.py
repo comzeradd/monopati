@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Copyright (C) 2015 Nikos Roussos <nikos@roussos.cc>.
 # This file is part of Monopati - https://github.com/comzeradd/monopati
 
