@@ -7,16 +7,13 @@
     <link rel="stylesheet" href="/static/css/lib/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/lib/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/static/css/app.css">
-    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="{{ sitename }}" />
-    {% block css %}
-    {% endblock %}
-
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="{{ sitename }}">
+    {% block css %}{% endblock %}
     <link rel="shortcut icon" href="/favicon.ico">
-
   </head>
 
   <body>
-    <div class="wrapper">
+    <div id="wrapper">
 
       <div class="container">
         <div class="row">
@@ -37,6 +34,13 @@
 
       {% block content %}{% endblock content %}
 
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        powered by <a href="https://github.com/comzeradd/monopati" target="_blank">monopati</a> &bull;
+        {{ license }}
+      </div>
     </div>
 
     <script src="/static/js/lib/jquery-1.11.2.min.js"></script>

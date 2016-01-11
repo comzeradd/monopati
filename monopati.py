@@ -41,7 +41,8 @@ def generate_pages():
         template = env.get_template(page)
         html = template.render({'page': page,
                                 'author': cfg['author'],
-                                'sitename': cfg['sitename']})
+                                'sitename': cfg['sitename'],
+                                'license': cfg['license']})
         with open(page, 'w') as file:
             file.write(html)
 
@@ -102,6 +103,7 @@ def generate_posts():
             tags=tags,
             author=cfg['author'],
             sitename=cfg['sitename'],
+            license=cfg['license'],
             content=content,
             link=link
         )
@@ -130,6 +132,7 @@ def generate_archive(posts, tag_set):
     tpl = env.get_template('blog.html')
     html = tpl.render(dict(
         sitename=cfg['sitename'],
+        license=cfg['license'],
         title='blog',
         posts=posts
     ))
@@ -166,7 +169,8 @@ def generate_feeds(posts, tag_set):
         items=posts,
         sitename=cfg['sitename'],
         author=cfg['author'],
-        rooturl=cfg['rooturl']
+        rooturl=cfg['rooturl'],
+        license=cfg['license']
     )
     with open('feed.xml', 'w') as file:
         file.write(xml)
