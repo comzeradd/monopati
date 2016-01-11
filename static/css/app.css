@@ -69,7 +69,8 @@ a {
     color: #f06;
 }
 
-post > img {
+post > img,
+post > p > img {
     display: block;
     margin: auto;
     max-width: 90%;
