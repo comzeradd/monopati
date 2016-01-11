@@ -163,14 +163,17 @@ def generate_archive(posts, tag_set):
 def generate_feeds(posts, tag_set):
     print('Generating atom feed...')
 
+    updated = str(time.strftime('%Y-%m-%dT%H:%M:%SZ'))
+
     env = Environment()
     env.loader = FileSystemLoader('templates')
     xml = env.get_template('feed.xml').render(
-        items=posts,
+        items=posts[:10],
         sitename=cfg['sitename'],
         author=cfg['author'],
         rooturl=cfg['rooturl'],
-        license=cfg['license']
+        license=cfg['license'],
+	updated=updated
     )
     with open('feed.xml', 'w') as file:
         file.write(xml)
@@ -178,7 +181,7 @@ def generate_feeds(posts, tag_set):
     for tag in tag_set:
         print('Generating {0} atom feed...'.format(tag))
         post_list = []
-        for post in posts:
+        for post in posts[:10]:
             if tag in post['tags']:
                 post_list.append(post)
         xml = env.get_template('feed.xml').render(
@@ -186,7 +189,8 @@ def generate_feeds(posts, tag_set):
             sitename=cfg['sitename'],
             author=cfg['author'],
             rooturl=cfg['rooturl'],
-            tagtitle=' &bull; {0}'.format(tag)
+            tagtitle=' - {0}'.format(tag),
+	    updated=updated
         )
         tagpath = path.join('tag', tag)
         try:

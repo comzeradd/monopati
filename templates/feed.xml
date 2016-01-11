@@ -2,12 +2,17 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <author>{{ author }}</author>
   <title>{{ sitename }}{{ tagtitle }}</title>
+  <updated>{{ updated }}</updated>
   {% for item in items %}
     <entry>
       <title>{{ item['title'] }}</title>
       <link href="{{ rooturl }}{{ item['link'] }}"/>
-      <content type="html">{{ item['content'] }}</content>
-      <pubDate>{{ item['date'] }}</pubDate>
+      <content type="html">
+        <![CDATA[
+          {{ item['content'] }}
+        ]]>
+      </content>
+      <published>{{ item['date'] }}</published>
     </entry>
   {% endfor %}
 </feed>
