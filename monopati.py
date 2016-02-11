@@ -42,7 +42,10 @@ def generate_pages():
         html = template.render({'page': page,
                                 'author': cfg['author'],
                                 'sitename': cfg['sitename'],
-                                'license': cfg['license']})
+                                'license': cfg['license'],
+                                'logo': cfg['logo'],
+                                'rooturl': cfg['rooturl'],
+                                'link': page})
         with open(page, 'w') as file:
             file.write(html)
 
@@ -85,9 +88,12 @@ def generate_posts():
         except OSError:
             pass
 
+        images = []
         if 'files' in headers:
             files = headers['files'].split(', ')
             for file in files:
+                if (file.find('.png') != -1) or (file.find('.jpg') != -1):
+                    images.append(file)
                 copy2(path.join('posts/files/', file), postpath)
 
         link = '{0}/'.format(postpath)
@@ -104,7 +110,9 @@ def generate_posts():
             author=cfg['author'],
             sitename=cfg['sitename'],
             license=cfg['license'],
+            logo=cfg['logo'],
             content=content,
+            images=images,
             link=link
         )
 
@@ -133,6 +141,7 @@ def generate_archive(posts, tag_set):
     html = tpl.render(dict(
         sitename=cfg['sitename'],
         license=cfg['license'],
+        logo=cfg['logo'],
         title='blog',
         posts=posts
     ))
@@ -173,7 +182,8 @@ def generate_feeds(posts, tag_set):
         author=cfg['author'],
         rooturl=cfg['rooturl'],
         license=cfg['license'],
-	updated=updated
+        logo=cfg['logo'],
+        updated=updated
     )
     with open('feed.xml', 'w') as file:
         file.write(xml)

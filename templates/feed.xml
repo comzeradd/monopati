@@ -2,6 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <author>{{ author }}</author>
   <title>{{ sitename }}{{ tagtitle }}</title>
+  <link href="{{ rooturl }}feed.xml" rel="self" />
+  <link href="{{ rooturl }}" />
+  <icon>{{ rooturl }}favicon.ico</icon>
+  <logo>{{ rooturl }}static/img/{{ logo }}</logo>
   <updated>{{ updated }}</updated>
   {% for item in items %}
     <entry>

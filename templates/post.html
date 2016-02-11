@@ -2,6 +2,18 @@
 
 {% block title %} &bull; {{ title }}{% endblock title %}
 
+{% block meta %}
+  <meta property="og:title" content="{{ title}}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{ rooturl }}{{ link }}">
+  {% if images %}
+    {% for image in images %}
+      <meta property="og:image" content="{{ rooturl }}{{ link }}{{ image }}">
+    {% endfor %}
+  {% endif %}
+  <meta property="og:description" content="{{ content|striptags|truncate(300, True)|e }}">
+{% endblock %}
+
 {% block content %}
   <div class="container">
     <div class="row">

@@ -4,10 +4,17 @@
     <meta charset="utf-8">
     <title>{{ sitename }}{% block title %}{% endblock title %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="{{ sitename }}">
+    <meta property="og:site_name" content="{{ sitename }}">
+    {% block meta %}
+      <meta property="og:title" content="{{ sitename }}">
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="{{ rooturl }}{{ link }}">
+    {% endblock %}
+    <meta property="og:image" content="{{ rooturl }}static/img/{{ logo }}">
     <link rel="stylesheet" href="/static/css/lib/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/lib/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/static/css/app.css">
-    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="{{ sitename }}">
     {% block css %}{% endblock %}
     <link rel="shortcut icon" href="/favicon.ico">
   </head>
@@ -20,7 +27,7 @@
           <div class="col-md-12 text-center">
             <p class="avatar">
               <a href="/">
-                <img src="/static/img/avatar.png" alt="{{ author }}" class="avatar img-circle" />
+                <img src="/static/img/{{ logo }}" alt="{{ author }}" class="avatar img-circle" />
               </a>
             </p>
             <h3>
