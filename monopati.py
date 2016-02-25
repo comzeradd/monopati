@@ -158,6 +158,8 @@ def generate_archive(posts, tag_set):
         tpl = env.get_template('blog.html')
         html = tpl.render(dict(
             sitename=cfg['sitename'],
+            license=cfg['license'],
+            logo=cfg['logo'],
             title='blog: #{0}'.format(tag),
             posts=post_list
         ))
