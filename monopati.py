@@ -110,6 +110,7 @@ def generate_posts():
             author=cfg['author'],
             sitename=cfg['sitename'],
             license=cfg['license'],
+            rooturl=cfg['rooturl'],
             logo=cfg['logo'],
             content=content,
             images=images,
@@ -200,7 +201,7 @@ def generate_feeds(posts, tag_set):
             author=cfg['author'],
             rooturl=cfg['rooturl'],
             tagtitle=' - {0}'.format(tag),
-	    updated=updated
+            updated=updated
         )
         tagpath = path.join('tag', tag)
         try:
