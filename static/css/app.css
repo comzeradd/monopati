@@ -87,7 +87,7 @@ img.txt {
     display: block;
 }
 
-post img {
+.post img {
     display: block;
     margin: auto;
     max-width: 90%;
