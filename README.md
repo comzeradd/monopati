@@ -42,9 +42,9 @@ so it should be fairly easy to deploy it by just uploading the whole folder.
 ### Example
 
 The code comes with one example post (under the `posts`) folder. You can check
-how the metadata header is being user and some basic syntax. Under the `pages`
-folder there is a static template example which serves as the landing and about
-page of your site.
+how the metadata header is being user and some basic syntax and how images can be
+added to a post. Under the `pages` folder there is a static template example
+which serves as the landing and about page of your site.
 
 ## LICENSE
 
