@@ -17,11 +17,12 @@
 {% block content %}
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 post-title">
         <h3>
           <a href="/{{ link }}">{{ title }}</a>
         </h3>
         <small>
+          {{ shortdate }} -
           {% for tag in tags %}
             <a href="/tag/{{ tag }}/">#{{ tag }}</a>
           {% endfor %}
