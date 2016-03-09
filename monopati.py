@@ -19,6 +19,7 @@ from os import path, listdir, makedirs, mkdir
 import sys
 import yaml
 import time
+import re
 from glob import glob
 from shutil import copy2
 
@@ -100,6 +101,16 @@ def generate_posts():
         filename = '{0}index.html'.format(link)
 
         print('Generating HTML blog post at {0}...'.format(filename))
+
+        content = re.sub(
+            r" src=[\"']([^/]+?)[\"']",
+            ' src="/{0}{1}"'.format(link, r"\1"),
+            content)
+
+        content = re.sub(
+            r" href=[\"']([^/]+?)[\"']",
+            ' href="/{0}{1}"'.format(link, r"\1"),
+            content)
 
         post_object = dict(
             date=date,
