@@ -108,7 +108,7 @@ def generate_posts():
             content)
 
         content = re.sub(
-            r" href=[\"']([^/]+?)[\"']",
+            r" href=[\"'](?!mailto:)([^/]+?)[\"']",
             ' href="/{0}{1}"'.format(link, r"\1"),
             content)
 
