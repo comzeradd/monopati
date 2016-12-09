@@ -2,6 +2,10 @@
 
 A minimalistic static content generator.
 
+You can read the [relevant post](https://www.roussos.cc/2016/01/11/monopati/) on why. Monopati is inspired by other great minimalistic content generators, like [bucket3](https://github.com/vrypan/bucket3/) and [habu](https://github.com/botherder/habu).
+
+[![license](https://img.shields.io/badge/license-AGPL%203.0-6672D8.svg)](LICENSE)
+
 ## Usage
 
 Clone the repository:
@@ -45,7 +49,3 @@ The code comes with one example post (under the `posts`) folder. You can check
 how the metadata header is being user and some basic syntax and how images can be
 added to a post. Under the `pages` folder there is a static template example
 which serves as the landing and about page of your site.
-
-## LICENSE
-
-Licensed under the [GPLv3](LICENSE).
