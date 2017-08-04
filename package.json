@@ -1,0 +1,34 @@
+{
+    "name": "monopati",
+    "version": "0.1.0",
+    "description": "a minimalistic static content generator",
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.com/comzeradd/monopati.git"
+    },
+    "author": "Nikos Roussos",
+    "private": true,
+    "license": "AGPL-3.0",
+    "bugs": {
+        "url": "https://gitlab.com/comzeradd/monopati/issues"
+    },
+    "devDependencies": {
+        "gulp": "^3.9.1",
+        "gulp-clean-css": "^3.7.0",
+        "gulp-eslint": "^4.0.0",
+        "gulp-filter": "^5.0.0",
+        "gulp-stylelint": "^3.9.0",
+        "gulp-uglify": "^3.0.0"
+    },
+    "dependencies": {
+        "bootstrap": "^3.3.7",
+        "jquery": "^3.1.1"
+    },
+    "assets": [
+        "jquery/dist/jquery.js",
+        "bootstrap/dist/css/bootstrap.css",
+        "bootstrap/dist/css/bootstrap-theme.css",
+        "bootstrap/dist/js/bootstrap.js",
+        "bootstrap/dist/fonts/*"
+    ]
+}
