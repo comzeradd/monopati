@@ -15,20 +15,30 @@
 # See the file 'LICENSE' for more information.
 
 
-from os import path, listdir, makedirs, mkdir
-import sys
-import yaml
-import time
-import re
 from glob import glob
-from shutil import copy2
-
-from markdown import Markdown
 from jinja2 import Environment, FileSystemLoader
+from markdown import Markdown
+from os import path, listdir, makedirs
+import re
+from shutil import copy2
+import sys
+import time
+import yaml
 
 
 try:
     cfg = yaml.load(open('config.yml', 'r').read())
+    try:
+        output = cfg['output']
+    except KeyError:
+        output = '.'
+    else:
+        if output.endswith('/'):
+            output = output[:-1]
+    try:
+        makedirs(output)
+    except OSError:
+        pass
 except IOError:
     print('No config.yml found. Copy config.yml-dist and edit it to fit your needs')
     sys.exit(0)
@@ -47,7 +57,7 @@ def generate_pages():
                                 'logo': cfg['logo'],
                                 'rooturl': cfg['rooturl'],
                                 'link': page})
-        with open(page, 'w') as file:
+        with open(output + '/' + page, 'w') as file:
             file.write(html)
 
 
@@ -83,9 +93,10 @@ def generate_posts():
 
         shortdate = str.join('.', (year, month, day))
 
-        postpath = path.join(year, month, day, slug)
+        link = '{0}/'.format(path.join(year, month, day, slug))
+        postpath = path.join(output, link)
         try:
-            makedirs(postpath)
+            makedirs(path.join(postpath))
         except OSError:
             pass
 
@@ -97,8 +108,7 @@ def generate_posts():
                     images.append(file)
                 copy2(path.join('posts/files/', file), postpath)
 
-        link = '{0}/'.format(postpath)
-        filename = '{0}index.html'.format(link)
+        filename = '{0}index.html'.format(postpath)
 
         print('Generating HTML blog post at {0}...'.format(filename))
 
@@ -157,7 +167,7 @@ def generate_archive(posts, tag_set):
         title='blog',
         posts=posts
     ))
-    with open('blog.html', 'w') as file:
+    with open(output + '/blog.html', 'w') as file:
         file.write(html)
 
     for tag in tag_set:
@@ -174,9 +184,9 @@ def generate_archive(posts, tag_set):
             title='blog: #{0}'.format(tag),
             posts=post_list
         ))
-        tagpath = path.join('tag', tag)
+        tagpath = path.join(output, 'tag', tag)
         try:
-            mkdir(tagpath)
+            makedirs(tagpath)
         except OSError:
             pass
         with open('{0}/index.html'.format(tagpath), 'w') as file:
@@ -199,7 +209,7 @@ def generate_feeds(posts, tag_set):
         logo=cfg['logo'],
         updated=updated
     )
-    with open('feed.xml', 'w') as file:
+    with open(output + '/feed.xml', 'w') as file:
         file.write(xml)
 
     for tag in tag_set:
@@ -216,9 +226,9 @@ def generate_feeds(posts, tag_set):
             tagtitle=' - {0}'.format(tag),
             updated=updated
         )
-        tagpath = path.join('tag', tag)
+        tagpath = path.join(output, 'tag', tag)
         try:
-            mkdir(tagpath)
+            makedirs(tagpath)
         except OSError:
             pass
         with open('{0}/feed.xml'.format(tagpath), 'w') as file:
