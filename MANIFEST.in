@@ -1,5 +1,5 @@
-include LICENSE *.md *.yml *.ico *.txt
+include LICENSE *.md *.yml *.dist
 recursive-include pages *
 recursive-include posts *
-recursive-include static *
+recursive-include skel *
 recursive-include templates *

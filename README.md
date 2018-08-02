@@ -30,7 +30,7 @@ for blog posts.
 Copy configuration example and edit it to fit your site specifics.
 
 ```
-cp config.yml-dist config.yml
+cp config.yml.dist config.yml
 ```
 
 Run monopati:

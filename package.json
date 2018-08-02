@@ -21,14 +21,17 @@
         "gulp-uglify": "^3.0.0"
     },
     "dependencies": {
-        "bootstrap": "^3.3.7",
-        "jquery": "^3.1.1"
+        "bootstrap": "^4.1.3",
+        "fork-awesome": "^1.1.0",
+        "jquery": "^3.3.1",
+        "popper.js": "^1.14.3"
     },
     "assets": [
-        "jquery/dist/jquery.js",
-        "bootstrap/dist/css/bootstrap.css",
-        "bootstrap/dist/css/bootstrap-theme.css",
-        "bootstrap/dist/js/bootstrap.js",
-        "bootstrap/dist/fonts/*"
+        "bootstrap/dist/css/bootstrap.min.css",
+        "bootstrap/dist/js/bootstrap.min.js",
+        "fork-awesome/css/fork-awesome.min.css",
+        "fork-awesome/fonts/*",
+        "jquery/dist/jquery.min.js",
+        "popper.js/dist/umd/popper.min.js"
     ]
 }

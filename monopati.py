@@ -20,7 +20,7 @@ from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
 from os import path, listdir, makedirs
 import re
-from shutil import copy2
+from shutil import copy2, copytree
 import sys
 import time
 import yaml
@@ -235,11 +235,22 @@ def generate_feeds(posts, tag_set):
             file.write(xml)
 
 
+def copy_skel():
+    for item in listdir('skel'):
+        src = path.join('skel', item)
+        dst = path.join(output, item)
+        if path.isdir(src):
+            copytree(src, dst)
+        else:
+            copy2(src, dst)
+
+
 def main():
     generate_pages()
     posts, tag_set = generate_posts()
     generate_archive(posts, tag_set)
     generate_feeds(posts, tag_set)
+    copy_skel()
 
 
 if __name__ == '__main__':

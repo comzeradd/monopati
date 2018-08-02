@@ -8,12 +8,12 @@ var eslint = require('gulp-eslint');
 var stylelint = require('gulp-stylelint');
 
 var lintPathsJS = [
-    'static/js/*.js',
+    'skel/static/js/*.js',
     'gulpfile.js'
 ];
 
 var lintPathsCSS = [
-    'static/css/*.css'
+    'skel/static/css/*.css'
 ];
 
 gulp.task('js:lint', () => {
@@ -42,7 +42,7 @@ gulp.task('assets', function(){
         .pipe(filterCSS)
         .pipe(cleanCSS({rebase: false}))
         .pipe(filterCSS.restore)
-        .pipe(gulp.dest('static/lib'));
+        .pipe(gulp.dest('skel/static/lib'));
 });
 
 gulp.task('test', () => {
