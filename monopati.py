@@ -18,9 +18,9 @@
 from glob import glob
 from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
-from os import path, listdir, makedirs
+from os import path, listdir, makedirs, remove
 import re
-from shutil import copy2, copytree
+from shutil import copy2, copytree, rmtree
 import sys
 import time
 import yaml
@@ -235,14 +235,18 @@ def generate_feeds(posts, tag_set):
             file.write(xml)
 
 
-def copy_skel():
-    for item in listdir('skel'):
-        src = path.join('skel', item)
-        dst = path.join(output, item)
-        if path.isdir(src):
-            copytree(src, dst)
-        else:
-            copy2(src, dst)
+def copy_static():
+    dest = path.join(output, 'static')
+    if path.exists(dest):
+        rmtree(dest)
+    copytree('static', dest)
+
+    dest = path.join(output, 'favicon.ico')
+    if path.exists(dest):
+        remove(dest)
+    copy2('favicon.ico', dest)
+
+
 
 
 def main():
@@ -250,7 +254,9 @@ def main():
     posts, tag_set = generate_posts()
     generate_archive(posts, tag_set)
     generate_feeds(posts, tag_set)
-    copy_skel()
+
+    if output != '.':
+        copy_static()
 
 
 if __name__ == '__main__':

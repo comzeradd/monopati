@@ -13,6 +13,7 @@ setup(
     zip_safe=False,
     license='LICENSE',
     install_requires=[
+        'docopt',
         'Jinja2',
         'Markdown',
         'PyYAML'
