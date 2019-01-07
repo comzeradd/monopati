@@ -30,7 +30,7 @@ gulp.task('css:lint', () => {
         }));
 });
 
-gulp.task('assets', function(){
+gulp.task('assets', () => {
     var filterJS = gulpFilter('**/*.js', { restore: true });
     var filterCSS = gulpFilter('**/*.css', { restore: true });
     var p = require('./package.json');
@@ -45,12 +45,14 @@ gulp.task('assets', function(){
         .pipe(gulp.dest('skel/static/lib'));
 });
 
-gulp.task('test', () => {
-    gulp.start('js:lint');
-    gulp.start('css:lint');
+gulp.task('test', (done) => {
+    gulp.parallel('js:lint');
+    gulp.parallel('css:lint');
+    done();
 });
 
-gulp.task('default', function() {
-    gulp.start('assets');
-    gulp.start('test');
+gulp.task('default', (done) => {
+    gulp.series('assets');
+    gulp.series('test');
+    done();
 });
