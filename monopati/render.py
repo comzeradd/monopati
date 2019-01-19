@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # Copyright (C) 2015-2019 Nikos Roussos <nikos@roussos.cc>.
 # This file is part of Monopati - https://github.com/comzeradd/monopati
 
@@ -14,11 +13,10 @@
 
 # See the file 'LICENSE' for more information.
 
-
 from glob import glob
 from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
-from os import path, listdir, makedirs, remove
+from os import listdir, makedirs, remove, path
 import re
 from shutil import copy2, copytree, rmtree
 import sys
@@ -26,27 +24,43 @@ import time
 import yaml
 
 
-try:
-    cfg = yaml.load(open('config.yml', 'r').read())
+def _config():
+    """
+    Parse the configuration yaml file.
+    """
+    try:
+        cfg = yaml.load(open('config.yml', 'r').read())
+    except IOError:
+        print('No config.yml found. Copy config.yml-dist and edit it to fit your needs')
+        sys.exit(0)
+
     try:
         output = cfg['output']
     except KeyError:
-        output = '.'
-    else:
-        if output.endswith('/'):
-            output = output[:-1]
+        cfg['output'] = '.'
+        return cfg
+
+    if output.endswith('/'):
+        output = output[:-1]
+
     try:
         makedirs(output)
     except OSError:
         pass
-except IOError:
-    print('No config.yml found. Copy config.yml-dist and edit it to fit your needs')
-    sys.exit(0)
+
+    return cfg
 
 
 def generate_pages():
+    """
+    Generates all static pages from templates.
+    """
+    print('Generating pages...')
+    cfg = _config()
+
     env = Environment()
     env.loader = FileSystemLoader(['pages', 'templates'])
+
     for page in listdir('pages'):
         print('Generating page {0}...'.format(page))
         template = env.get_template(page)
@@ -57,11 +71,17 @@ def generate_pages():
                                 'logo': cfg['logo'],
                                 'rooturl': cfg['rooturl'],
                                 'link': page})
-        with open(output + '/' + page, 'w') as file:
+        with open(cfg['output'] + '/' + page, 'w') as file:
             file.write(html)
 
 
 def generate_posts():
+    """
+    Generates all posts from markdown.
+    """
+    print('Generating posts...')
+    cfg = _config()
+
     posts = []
     alltags = []
 
@@ -94,7 +114,7 @@ def generate_posts():
         shortdate = str.join('.', (year, month, day))
 
         link = '{0}/'.format(path.join(year, month, day, slug))
-        postpath = path.join(output, link)
+        postpath = path.join(cfg['output'], link)
         try:
             makedirs(path.join(postpath))
         except OSError:
@@ -155,10 +175,15 @@ def generate_posts():
 
 
 def generate_archive(posts, tag_set):
+    """
+    Generates blog archives.
+    """
     print('Generating blog archive...')
+    cfg = _config()
 
     env = Environment()
     env.loader = FileSystemLoader('templates')
+
     tpl = env.get_template('blog.html')
     html = tpl.render(dict(
         sitename=cfg['sitename'],
@@ -167,7 +192,7 @@ def generate_archive(posts, tag_set):
         title='blog',
         posts=posts
     ))
-    with open(output + '/blog.html', 'w') as file:
+    with open(cfg['output'] + '/blog.html', 'w') as file:
         file.write(html)
 
     for tag in tag_set:
@@ -184,7 +209,7 @@ def generate_archive(posts, tag_set):
             title='blog: #{0}'.format(tag),
             posts=post_list
         ))
-        tagpath = path.join(output, 'tag', tag)
+        tagpath = path.join(cfg['output'], 'tag', tag)
         try:
             makedirs(tagpath)
         except OSError:
@@ -194,12 +219,17 @@ def generate_archive(posts, tag_set):
 
 
 def generate_feeds(posts, tag_set):
+    """
+    Generates atom feeds
+    """
     print('Generating atom feed...')
+    cfg = _config()
 
     updated = str(time.strftime('%Y-%m-%dT%H:%M:%SZ'))
 
     env = Environment()
     env.loader = FileSystemLoader('templates')
+
     xml = env.get_template('feed.xml').render(
         items=posts[:10],
         sitename=cfg['sitename'],
@@ -209,7 +239,7 @@ def generate_feeds(posts, tag_set):
         logo=cfg['logo'],
         updated=updated
     )
-    with open(output + '/feed.xml', 'w') as file:
+    with open(cfg['output'] + '/feed.xml', 'w') as file:
         file.write(xml)
 
     for tag in tag_set:
@@ -226,7 +256,7 @@ def generate_feeds(posts, tag_set):
             tagtitle=' - {0}'.format(tag),
             updated=updated
         )
-        tagpath = path.join(output, 'tag', tag)
+        tagpath = path.join(cfg['output'], 'tag', tag)
         try:
             makedirs(tagpath)
         except OSError:
@@ -236,28 +266,21 @@ def generate_feeds(posts, tag_set):
 
 
 def copy_static():
-    dest = path.join(output, 'static')
+    """
+    Updates static files.
+    """
+    print('Updating static files...')
+    cfg = _config()
+
+    if cfg['output'] == '.':
+        return None
+
+    dest = path.join(cfg['output'], 'static')
     if path.exists(dest):
         rmtree(dest)
     copytree('static', dest)
 
-    dest = path.join(output, 'favicon.ico')
+    dest = path.join(cfg['output'], 'favicon.ico')
     if path.exists(dest):
         remove(dest)
     copy2('favicon.ico', dest)
-
-
-
-
-def main():
-    generate_pages()
-    posts, tag_set = generate_posts()
-    generate_archive(posts, tag_set)
-    generate_feeds(posts, tag_set)
-
-    if output != '.':
-        copy_static()
-
-
-if __name__ == '__main__':
-    main()

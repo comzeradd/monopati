@@ -1,5 +1,2 @@
-include LICENSE *.md *.yml *.dist
-recursive-include pages *
-recursive-include posts *
-recursive-include skel *
-recursive-include templates *
+include LICENSE *.md
+recursive-include monopati *

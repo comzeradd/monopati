@@ -1,14 +1,14 @@
-from setuptools import find_packages, setup
-
+from setuptools import setup
+from monopati import __version__
 
 setup(
     name='monopati',
-    packages=find_packages(),
-    version='0.2.0',
+    version=__version__,
     author='Nikos Roussos',
     author_email='nikos@roussos.cc',
     url='https://github.com/comzeradd/monopati/',
     description='a minimalistic static content generator',
+    long_description=open('README.md').read(),
     include_package_data=True,
     zip_safe=False,
     license='LICENSE',
@@ -18,7 +18,8 @@ setup(
         'Markdown',
         'PyYAML'
     ],
-    scripts=['monopati.py'],
+    packages=['monopati'],
+    scripts=['bin/monopati'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',

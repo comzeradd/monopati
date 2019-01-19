@@ -1,5 +1,5 @@
 *.pyc
 node_modules
-yarn-error.log
-config.yml
-public
+build
+dist
+*.egg-info

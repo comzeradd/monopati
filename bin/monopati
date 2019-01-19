@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+# Copyright (C) 2015-2019 Nikos Roussos <nikos@roussos.cc>.
+# This file is part of Monopati - https://github.com/comzeradd/monopati
+
+# Monopati is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# Monopati is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# See the file 'LICENSE' for more information.
+
+"""
+Usage:
+  monopati [options] init
+  monopati render
+  monopati --version
+  monopati -h, --help
+
+Options:
+  -p, --path=<path>        top directory of your website.
+"""
+
+from docopt import docopt
+import sys
+
+from monopati import __version__, helpers, render
+
+
+if __name__ == '__main__':
+
+    args = docopt(__doc__, version=__version__)
+
+    if args['init']:
+        if args['--path']:
+            helpers.kickstart(args['--path'])
+        else:
+            print('Usage:\n\tmonopati --path=mywebsite init')
+            sys.exit()
+    elif args['render']:
+        render.generate_pages()
+        posts, tag_set = render.generate_posts()
+        render.generate_archive(posts, tag_set)
+        render.generate_feeds(posts, tag_set)
+        render.copy_static()
