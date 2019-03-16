@@ -1,36 +1,36 @@
-/* global require */
+/* global require, exports */
 
-var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var cleanCSS = require('gulp-clean-css');
-var gulpFilter = require('gulp-filter');
-var eslint = require('gulp-eslint');
-var stylelint = require('gulp-stylelint');
+const gulp = require('gulp');
+const uglify = require('gulp-uglify');
+const cleanCSS = require('gulp-clean-css');
+const gulpFilter = require('gulp-filter');
+const eslint = require('gulp-eslint');
+const stylelint = require('gulp-stylelint');
 
-var lintPathsJS = [
+const lintPathsJS = [
     'skel/static/js/*.js',
     'gulpfile.js'
 ];
 
-var lintPathsCSS = [
+const lintPathsCSS = [
     'skel/static/css/*.css'
 ];
 
-gulp.task('js:lint', () => {
+function lint_js() {
     return gulp.src(lintPathsJS)
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
-});
+}
 
-gulp.task('css:lint', () => {
+function lint_css() {
     return gulp.src(lintPathsCSS)
         .pipe(stylelint({
             reporters: [{ formatter: 'string', console: true}]
         }));
-});
+}
 
-gulp.task('assets', () => {
+function assets() {
     var filterJS = gulpFilter('**/*.js', { restore: true });
     var filterCSS = gulpFilter('**/*.css', { restore: true });
     var p = require('./package.json');
@@ -42,17 +42,8 @@ gulp.task('assets', () => {
         .pipe(filterCSS)
         .pipe(cleanCSS({rebase: false}))
         .pipe(filterCSS.restore)
-        .pipe(gulp.dest('skel/static/lib'));
-});
+        .pipe(gulp.dest('monopati/skel/static/lib'));
+}
 
-gulp.task('test', (done) => {
-    gulp.parallel('js:lint');
-    gulp.parallel('css:lint');
-    done();
-});
-
-gulp.task('default', (done) => {
-    gulp.series('assets');
-    gulp.series('test');
-    done();
-});
+exports.test = gulp.parallel(lint_css, lint_js);
+exports.default = gulp.series(lint_css, lint_js, assets);
