@@ -29,7 +29,7 @@ def _config():
     Parse the configuration yaml file.
     """
     try:
-        cfg = yaml.load(open('config.yml', 'r').read())
+        cfg = yaml.load(open('config.yml', 'r').read(), Loader=yaml.BaseLoader)
     except IOError:
         print('No config.yml found. Copy config.yml-dist and edit it to fit your needs')
         sys.exit(0)
@@ -95,7 +95,7 @@ def generate_posts():
 
         raw = open(post, 'r').read()
         headers, content = raw.split('---', 1)
-        headers = yaml.load(headers)
+        headers = yaml.load(headers, Loader=yaml.BaseLoader)
         tags = headers['tags'].split(', ')
         slug = headers['slug']
         md = Markdown()
