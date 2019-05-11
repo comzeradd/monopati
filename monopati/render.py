@@ -101,6 +101,10 @@ def generate_posts():
         md = Markdown()
         content = md.convert(content)
 
+        if 'status' in headers:
+            if headers['status'] == 'draft':
+                continue
+
         if 'date' in headers:
             date = headers['date']
         else:
