@@ -52,3 +52,7 @@ The code comes with one example post (under the `posts`) folder. You can check
 how the metadata header is being user and some basic syntax and how images can be
 added to a post. Under the `pages` folder there is a static template example
 which serves as the landing and about page of your site.
+
+## Support
+
+[![Liberapay receiving](https://img.shields.io/liberapay/receives/comzeradd)](https://liberapay.com/comzeradd/donate)
