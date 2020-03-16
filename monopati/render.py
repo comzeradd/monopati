@@ -1,4 +1,4 @@
-# Copyright (C) 2015-2019 Nikos Roussos <nikos@roussos.cc>.
+# Copyright (C) 2015-2020 Nikos Roussos <nikos@roussos.cc>.
 # This file is part of Monopati - https://github.com/comzeradd/monopati
 
 # Monopati is free software: you can redistribute it and/or modify
