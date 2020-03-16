@@ -23,13 +23,17 @@ Usage:
   monopati -h, --help
 
 Options:
-  -p, --path=<path>        top directory of your website.
+  --path=<path>        top directory of your website.
+  --port=<number>      port for the http server.
 """
 
 from docopt import docopt
 import sys
 
 from monopati import __version__, helpers, render
+
+
+PORT = 8080
 
 
 if __name__ == '__main__':
@@ -48,3 +52,8 @@ if __name__ == '__main__':
         render.generate_archive(posts, tag_set)
         render.generate_feeds(posts, tag_set)
         render.copy_static()
+    elif args['serve']:
+        if args['--port']:
+            helpers.serve(int(args['--port']))
+        else:
+            helpers.serve(PORT)

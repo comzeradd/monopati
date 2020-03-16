@@ -19,36 +19,10 @@ from markdown import Markdown
 from os import listdir, makedirs, remove, path
 import re
 from shutil import copy2, copytree, rmtree
-import sys
 import time
 import yaml
 
-
-def _config():
-    """
-    Parse the configuration yaml file.
-    """
-    try:
-        cfg = yaml.load(open('config.yml', 'r').read(), Loader=yaml.BaseLoader)
-    except IOError:
-        print('No config.yml found. Copy config.yml-dist and edit it to fit your needs')
-        sys.exit(0)
-
-    try:
-        output = cfg['output']
-    except KeyError:
-        cfg['output'] = '.'
-        return cfg
-
-    if output.endswith('/'):
-        output = output[:-1]
-
-    try:
-        makedirs(output)
-    except OSError:
-        pass
-
-    return cfg
+from monopati.helpers import config
 
 
 def generate_pages():
@@ -56,7 +30,7 @@ def generate_pages():
     Generates all static pages from templates.
     """
     print('Generating pages...')
-    cfg = _config()
+    cfg = config()
 
     env = Environment()
     env.loader = FileSystemLoader(['pages', 'templates'])
@@ -80,7 +54,7 @@ def generate_posts():
     Generates all posts from markdown.
     """
     print('Generating posts...')
-    cfg = _config()
+    cfg = config()
 
     posts = []
     alltags = []
@@ -183,7 +157,7 @@ def generate_archive(posts, tag_set):
     Generates blog archives.
     """
     print('Generating blog archive...')
-    cfg = _config()
+    cfg = config()
 
     env = Environment()
     env.loader = FileSystemLoader('templates')
@@ -227,7 +201,7 @@ def generate_feeds(posts, tag_set):
     Generates atom feeds
     """
     print('Generating atom feed...')
-    cfg = _config()
+    cfg = config()
 
     updated = str(time.strftime('%Y-%m-%dT%H:%M:%SZ'))
 
@@ -274,7 +248,7 @@ def copy_static():
     Updates static files.
     """
     print('Updating static files...')
-    cfg = _config()
+    cfg = config()
 
     if cfg['output'] == '.':
         return None

@@ -13,9 +13,39 @@
 
 # See the file 'LICENSE' for more information.
 
-from os import path, mkdir, listdir
+import http.server
+import socketserver
+from os import path, mkdir, listdir, makedirs, chdir
 from shutil import copy2, copytree
 import sys
+import yaml
+
+
+def config():
+    """
+    Parse the configuration yaml file.
+    """
+    try:
+        cfg = yaml.load(open('config.yml', 'r').read(), Loader=yaml.BaseLoader)
+    except IOError:
+        print('No config.yml found. Copy config.yml-dist and edit it to fit your needs')
+        sys.exit(0)
+
+    try:
+        output = cfg['output']
+    except KeyError:
+        cfg['output'] = '.'
+        return cfg
+
+    if output.endswith('/'):
+        output = output[:-1]
+
+    try:
+        makedirs(output)
+    except OSError:
+        pass
+
+    return cfg
 
 
 def kickstart(folder):
@@ -37,3 +67,12 @@ def kickstart(folder):
             copytree(s, d)
         else:
             copy2(s, d)
+
+
+def serve(port):
+    cfg = config()
+    Handler = http.server.SimpleHTTPRequestHandler
+    chdir(cfg['output'])
+    with socketserver.TCPServer(('', port), Handler) as httpd:
+        print('Serving at http://localhost:{0}'.format(port))
+        httpd.serve_forever()
