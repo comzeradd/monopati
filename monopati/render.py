@@ -101,7 +101,12 @@ def generate_posts():
 
         shortdate = str.join('.', (year, month, day))
 
-        link = '{0}/'.format(path.join(year, month, day, slug))
+        try:
+            permalink = cfg['permalink']
+            link = '{0}/'.format(path.join(permalink, slug))
+        except KeyError:
+            link = '{0}/'.format(path.join(year, month, day, slug))
+
         postpath = path.join(cfg['output'], link)
         try:
             makedirs(path.join(postpath))
