@@ -37,6 +37,7 @@ def generate_pages():
 
     for page in listdir('pages'):
         print('Generating page {0}...'.format(page))
+        pagepath = path.join(cfg['output'], page.rstrip('.html'))
         template = env.get_template(page)
         html = template.render({'page': page,
                                 'author': cfg['author'],
@@ -44,8 +45,17 @@ def generate_pages():
                                 'license': cfg['license'],
                                 'logo': cfg['logo'],
                                 'rooturl': cfg['rooturl'],
-                                'link': page})
-        with open(cfg['output'] + '/' + page, 'w') as file:
+                                'link': '{0}/'.format(page.rstrip('.html'))})
+
+        try:
+            makedirs(path.join(pagepath))
+        except OSError:
+            pass
+
+        with open('{0}/index.html'.format(pagepath), 'w') as file:
+            file.write(html)
+
+        with open('{0}/{1}'.format(cfg['output'], page), 'w') as file:
             file.write(html)
 
 
@@ -170,6 +180,17 @@ def generate_archive(posts, tag_set):
         title='blog',
         posts=posts
     ))
+
+    blogpath = path.join(cfg['output'], 'blog')
+
+    try:
+        makedirs(path.join(blogpath))
+    except OSError:
+        pass
+
+    with open('{0}/index.html'.format(blogpath), 'w') as file:
+        file.write(html)
+
     with open(cfg['output'] + '/blog.html', 'w') as file:
         file.write(html)
 
