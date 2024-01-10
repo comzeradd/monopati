@@ -35,6 +35,12 @@
     <div class="row">
       <div class="col-md-12 post">
         {{ content }}
+        {% if comments %}
+          <hr>
+          <p>
+            <em>Comments and reactions on <a href="{{ comments }}" target="_blank">Fediverse</a></em>.
+          </p>
+        {% endif %}
       </div>
     </div>
   </div>

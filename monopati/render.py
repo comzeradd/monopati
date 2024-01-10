@@ -84,6 +84,7 @@ def generate_posts():
         slug = headers['slug']
         md = Markdown()
         content = md.convert(content)
+        comments = False
 
         if 'status' in headers:
             if headers['status'] == 'draft':
@@ -93,6 +94,9 @@ def generate_posts():
             date = headers['date']
         else:
             date = str(time.strftime('%Y-%m-%d %H:%M:%S'))
+
+        if 'comments' in headers:
+            comments = headers['comments']
 
         datetime = time.strptime(str(date), '%Y-%m-%d %H:%M:%S')
         year = str(datetime.tm_year)
@@ -140,6 +144,7 @@ def generate_posts():
             shortdate=shortdate,
             title=headers['title'],
             slug=headers['slug'],
+            comments=comments,
             tags=tags,
             author=cfg['author'],
             sitename=cfg['sitename'],
