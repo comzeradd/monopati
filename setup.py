@@ -6,7 +6,7 @@ setup(
     version=__version__,
     author='Nikos Roussos',
     author_email='nikos@roussos.cc',
-    url='https://github.com/comzeradd/monopati/',
+    url='https://codeberg.org/comzeradd/monopati',
     description='a minimalistic static content generator',
     long_description=open('README.md').read(),
     include_package_data=True,

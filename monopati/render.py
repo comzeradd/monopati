@@ -1,5 +1,5 @@
 # Copyright (C) 2015-2020 Nikos Roussos <nikos@roussos.cc>.
-# This file is part of Monopati - https://github.com/comzeradd/monopati
+# This file is part of Monopati - https://codeberg.org/comzeradd/monopati
 
 # Monopati is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
